@@ -98,6 +98,34 @@
       </div>
     </form>
 
+    <script>
+      // Add loading state to form submission
+      document.querySelector('form').addEventListener('submit', function(e) {
+        const btn = document.getElementById('predict-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnLoading = document.getElementById('btn-loading');
+        
+        btn.disabled = true;
+        btnText.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+      });
+      
+      // Add real-time validation feedback
+      const scoreInputs = document.querySelectorAll('input[type="number"]');
+      scoreInputs.forEach(input => {
+        input.addEventListener('input', function() {
+          const value = parseFloat(this.value);
+          if (this.value && (value < 0 || value > 100)) {
+            this.classList.add('border-red-500');
+            this.classList.remove('border-gray-300');
+          } else {
+            this.classList.remove('border-red-500');
+            this.classList.add('border-gray-300');
+          }
+        });
+      });
+    </script>
+
     {% if error %}
       <div id="error" class="mt-6 p-5 bg-red-100 text-red-800 text-center rounded-xl font-semibold text-lg">
         ❌ Error: {{ error }}

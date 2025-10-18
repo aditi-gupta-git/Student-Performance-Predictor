@@ -111,7 +111,7 @@ The project evaluates 8 different algorithms:
 5. **Open your browser**
    Navigate to `http://localhost:5000`
 
-### Docker Setup (Optional)
+### Docker Setup (Recommended)
 
 ```bash
 # Build the image
@@ -119,6 +119,9 @@ docker build -t student-predictor .
 
 # Run the container
 docker run -p 5000:5000 student-predictor
+
+# Or use docker-compose (if you have a docker-compose.yml)
+docker-compose up --build
 ```
 
 ## 💻 Usage
@@ -214,11 +217,37 @@ Submit prediction form
 - **Content-Type**: `application/x-www-form-urlencoded`
 - **Returns**: HTML page with prediction result
 
-#### `POST /api/predict` *(Coming Soon)*
+#### `POST /api/predict`
 JSON API for predictions
 - **Content-Type**: `application/json`
 - **Body**: Student data in JSON format
 - **Returns**: JSON with prediction
+
+**Example Request:**
+```json
+{
+  "gender": "female",
+  "race_ethnicity": "group B",
+  "parental_level_of_education": "bachelor's degree",
+  "lunch": "standard",
+  "test_preparation_course": "completed",
+  "reading_score": 85,
+  "writing_score": 82
+}
+```
+
+**Example Response:**
+```json
+{
+  "prediction": 87.3,
+  "input_data": {...},
+  "status": "success"
+}
+```
+
+#### `GET /api/health`
+Health check endpoint
+- **Returns**: JSON with service status
 
 ## 🛠 Technical Details
 
@@ -265,14 +294,25 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ```bash
 # Install development dependencies
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 
-# Run tests
-python -m pytest tests/
+# Test the API endpoints
+python test_api.py http://localhost:5000
 
-# Run linting
-flake8 src/
-black src/
+# Run the application in development mode
+python app.py
+```
+
+### Testing
+
+The project includes a simple API test script:
+
+```bash
+# Test with default URL (localhost:5000)
+python test_api.py
+
+# Test with custom URL
+python test_api.py https://your-deployed-app.com
 ```
 
 ## 📄 License
