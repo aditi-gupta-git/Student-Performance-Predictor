@@ -84,14 +84,26 @@
       </div>
 
       <div class="md:col-span-2">
-        <button type="submit"
-          class="w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
-          🔮 Predict Maths Score
+        <button type="submit" id="predictBtn"
+          class="w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+          <span id="btnText">🔮 Predict Maths Score</span>
+          <span id="btnLoading" class="hidden">
+            <i class="fas fa-spinner fa-spin mr-2"></i>Predicting...
+          </span>
         </button>
       </div>
     </form>
 
-    {% if results is not none %}
+    {% if error %}
+      <div id="error" class="mt-6 p-5 bg-red-100 text-red-800 text-center rounded-xl font-semibold text-lg">
+        ⚠️ {{ error }}
+      </div>
+      <script>
+        // Scroll to the error after submission
+        const el = document.getElementById('error');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      </script>
+    {% elif results is not none %}
       <div id="result" class="mt-6 p-5 bg-green-100 text-green-800 text-center rounded-xl font-semibold text-lg">
         Predicted Maths Score: <span class="text-green-900">{{ results }}</span>
       </div>
@@ -118,4 +130,29 @@
     </p>
   </aside>
 </div>
+
+<script>
+// Add loading state to submit button
+document.querySelector('form').addEventListener('submit', function() {
+  const btn = document.getElementById('predictBtn');
+  const btnText = document.getElementById('btnText');
+  const btnLoading = document.getElementById('btnLoading');
+  
+  btn.disabled = true;
+  btnText.classList.add('hidden');
+  btnLoading.classList.remove('hidden');
+});
+
+// Add form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+  const readingScore = parseFloat(document.querySelector('input[name="reading_score"]').value);
+  const writingScore = parseFloat(document.querySelector('input[name="writing_score"]').value);
+  
+  if (readingScore < 0 || readingScore > 100 || writingScore < 0 || writingScore > 100) {
+    e.preventDefault();
+    alert('Scores must be between 0 and 100');
+    return false;
+  }
+});
+</script>
 {% endblock %}
