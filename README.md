@@ -16,7 +16,6 @@ A machine learning web application that predicts student mathematics scores base
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [API Reference](#api-reference)
 - [Technical Details](#technical-details)
 - [Contributing](#contributing)
 - [License](#license)
@@ -30,7 +29,7 @@ This project analyzes how various factors influence student performance in mathe
 - **Academic preparation**: Test preparation course completion
 - **Prior performance**: Reading and writing scores
 
-The application provides both a user-friendly web interface and programmatic access through API endpoints.
+The application provides a user-friendly web interface for making predictions.
 
 ## ✨ Features
 
@@ -111,18 +110,6 @@ The project evaluates 8 different algorithms:
 5. **Open your browser**
    Navigate to `http://localhost:5000`
 
-### Docker Setup (Recommended)
-
-```bash
-# Build the image
-docker build -t student-predictor .
-
-# Run the container
-docker run -p 5000:5000 student-predictor
-
-# Or use docker-compose (if you have a docker-compose.yml)
-docker-compose up --build
-```
 
 ## 💻 Usage
 
@@ -136,27 +123,6 @@ docker-compose up --build
    - Input reading and writing scores (0-100)
 3. **Results**: Get instant math score prediction
 
-### Programmatic Usage
-
-```python
-import requests
-
-# Prepare data
-data = {
-    'gender': 'female',
-    'ethnicity': 'group B',
-    'parental_level_of_education': "bachelor's degree",
-    'lunch': 'standard',
-    'test_preparation_course': 'completed',
-    'reading_score': 85,
-    'writing_score': 82
-}
-
-# Make prediction
-response = requests.post('http://localhost:5000/api/predict', json=data)
-prediction = response.json()['prediction']
-print(f"Predicted Math Score: {prediction}")
-```
 
 ## 📁 Project Structure
 
@@ -202,52 +168,6 @@ student-performance-predictor/
         └── stud.csv               # Original dataset
 ```
 
-## 🔧 API Reference
-
-### Endpoints
-
-#### `GET /`
-Home page with project overview
-
-#### `GET /predictdata`
-Prediction form interface
-
-#### `POST /predictdata`
-Submit prediction form
-- **Content-Type**: `application/x-www-form-urlencoded`
-- **Returns**: HTML page with prediction result
-
-#### `POST /api/predict`
-JSON API for predictions
-- **Content-Type**: `application/json`
-- **Body**: Student data in JSON format
-- **Returns**: JSON with prediction
-
-**Example Request:**
-```json
-{
-  "gender": "female",
-  "race_ethnicity": "group B",
-  "parental_level_of_education": "bachelor's degree",
-  "lunch": "standard",
-  "test_preparation_course": "completed",
-  "reading_score": 85,
-  "writing_score": 82
-}
-```
-
-**Example Response:**
-```json
-{
-  "prediction": 87.3,
-  "input_data": {...},
-  "status": "success"
-}
-```
-
-#### `GET /api/health`
-Health check endpoint
-- **Returns**: JSON with service status
 
 ## 🛠 Technical Details
 
@@ -269,7 +189,7 @@ Health check endpoint
 - **Data Processing**: Pandas, NumPy
 - **Visualization**: Matplotlib, Seaborn, Plotly
 - **Frontend**: HTML5, Tailwind CSS, JavaScript
-- **Deployment**: Render, Gunicorn
+- **Deployment**: Render (or any Python hosting platform)
 - **Serialization**: Dill (enhanced pickle)
 
 ### Model Features
@@ -296,23 +216,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 # Install development dependencies
 pip install -r requirements.txt
 
-# Test the API endpoints
-python test_api.py http://localhost:5000
-
 # Run the application in development mode
 python app.py
-```
-
-### Testing
-
-The project includes a simple API test script:
-
-```bash
-# Test with default URL (localhost:5000)
-python test_api.py
-
-# Test with custom URL
-python test_api.py https://your-deployed-app.com
 ```
 
 ## 📄 License
