@@ -101,6 +101,12 @@
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       </script>
     {% endif %}
+
+    {% if error is not none %}
+      <div class="mt-6 p-5 bg-red-100 text-red-800 text-center rounded-xl font-semibold text-lg">
+        {{ error }}
+      </div>
+    {% endif %}
   </div>
 
   <!-- Right: Tips panel -->
