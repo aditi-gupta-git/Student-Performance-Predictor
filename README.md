@@ -1,7 +1,7 @@
 ![Student Performance Predictor](banner.png)
 # STUDENT PERFORMANCE PREDICTOR
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Here-blue?style=for-the-badge)](https://student-performance-predictor-0hqd.onrender.com)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Here-blue?style=for-the-badge)](https://student-performance-predictor-0hqd.onrender.com/)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com)
 [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.0+-orange?style=for-the-badge&logo=scikit-learn)](https://scikit-learn.org)
